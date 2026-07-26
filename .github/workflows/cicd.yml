@@ -1,0 +1,30 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests and  save output
+        run: |
+          npm run check &> test_report.txt
+
+      - name: Upload test report
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-report
+          path: test_report.txt
