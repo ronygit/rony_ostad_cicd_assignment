@@ -30,6 +30,7 @@ jobs:
           path: test_report.txt
 
   deploy:
+    needs: test
     runs-on: ubuntu-latest
 
     steps:
